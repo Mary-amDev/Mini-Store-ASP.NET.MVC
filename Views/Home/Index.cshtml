@@ -1,0 +1,51 @@
+﻿
+@model List<Categories>
+@{
+    Layout = "_DashboardLayout";
+}
+<style>
+    .btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+}
+
+.card {
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+</style>
+
+<div class="container">
+    <h1 class="alert alert-info">مرحباً بك في المتجر الصغير
+        <i class="bi bi-balloon-heart"></i>
+    </h1>
+
+    <div class="row">
+        @foreach (var category in Model){ //نخليه يقرأ من الداتابيس
+            <div class="col md-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <i class="fas @category.Icon" style=" font-size: 80px; color: rgb(211, 14, 122);"></i>
+                        </div>
+
+                        <h4 class="card-title" style="font-weight: bold">@category.Name</h4>
+                        <p class="card-text">اكتشف منتجاتنا في فئة @category.Name.</p>
+                        <a asp-action="Products" asp-route-id=@category.Id class="btn" style= "background-color: rgb(189, 91, 145); color: white;">عرض المنتجات</a>
+                        
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

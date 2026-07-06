@@ -1,0 +1,19 @@
+@{
+
+}
+
+<div class="container  text-center text-align-center">
+    <div class="text-center mb-5 " style="color: #149edf; font-size: 30px; font-weight: bold;">
+        تفاصيل المنتج
+    </div>
+    <div class="row font-weight-bold" style="font-size: 20px;">
+        <div class="col-md-6">
+            <img src="~/image/@ViewBag.Product.Image" class="img-fluid" alt="@ViewBag.Product.Name" />
+        </div>
+        <div class="col-md-6 p-4 rounded" style="background-color: #f0d4ea;">
+            <h2>@ViewBag.Product.Name</h2>
+            <p>@ViewBag.Product.Description</p>
+            <p class="card-text badge bg-info text-white">السعر: @ViewBag.Product.Price ريال</p>
+        </div>
+    </div>
+</div>

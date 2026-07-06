@@ -1,0 +1,36 @@
+@{
+
+}
+<div class="container">
+    <div class="text-center mb-5">
+        قسم المنتجات المتوفرة 
+    </div>
+
+    @if (ViewBag.FilteredProducts != null && ViewBag.FilteredProducts.Count == 0)
+    {
+        <h1 class="alert alert-danger">لا توجد منتجات في هذه الفئة</h1>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var product in ViewBag.FilteredProducts)
+            {
+                <div class="col-sm-4">
+                    <div class="card h-100">
+                        <img src="~/image/@product.Image" class="card-img-top"alt="@product.Name" style="height: 200px; width: 200px;"/>
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text badge bg-danger text-white">السعر: @product.Price ريال</p>
+                           
+                            <div class="mb-4">
+                                <a asp-action="Details" asp-route-name="@product.Name" class="btn" style= "background-color: rgb(189, 91, 145); color: white;">تفاصيل المنتج </a>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            }
+         </div>      
+    }
+</div>
