@@ -2,6 +2,7 @@
 @{
     Layout = "_DashboardLayout";
 }
+@model List<Product>
 
     <h3>لوحة التحكم لإضافة المنتجات </h3>
 
@@ -33,16 +34,19 @@
                     <div class="mb-3">
                         <label class="form-label">اسم المنتج</label>
                         <input type="text"name="Name" placeholder="أدخل اسم المنتج" class="form-control" />
+                        <span asp-validation-for="@Model.First().Name" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">سعر المنتج</label>
-                        <input type="number" name="Price" placeholder="أدخل سعر المنتج" class="form-control" />
+                        <input type="number" name="Price" step="0.01" placeholder="أدخل سعر المنتج" class="form-control" />
+                        <span asp-validation-for="@Model.First().Price" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">صورة المنتج</label>
                         <input type="file" name="Image" class="form-control" />
+                        <span asp-validation-for="@Model.First().Image" class="text-danger"></span>
                     </div>
                     
                     <div class="mb-3">

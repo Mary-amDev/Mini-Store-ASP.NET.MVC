@@ -34,7 +34,7 @@ namespace mini_store.Controllers
                 _context.products.Remove(pro);
                 _context.SaveChanges();
             }
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace mini_store.Controllers
             _context.products.Update(product);
             _context.SaveChanges();
 
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Create()
@@ -70,9 +70,19 @@ namespace mini_store.Controllers
         //راح نبني نموذج نخليه يتخزن في ملف product.cs
         public IActionResult Create(Product product) //اسم الكلاس 
         {
-            _context.products.Add(product); //اضافة المنتج الى قاعدة البيانات في جدول البرودكت
-            _context.SaveChanges(); //حفظ التغييرات 
-            return RedirectToAction("Index"); //بعد ما يضيف المنتج يرجع الى صفحة الانديكس
+            if(ModelState.IsValid)
+            {
+                _context.products.Add(product); //اضافة المنتج الى قاعدة البيانات في جدول البرودكت
+                _context.SaveChanges(); //حفظ التغييرات 
+
+                 return RedirectToAction(nameof(Index)); //بعد ما يضيف المنتج يرجع الى صفحة الانديكس
+
+            }
+            ViewBag.categories = _context.categories.ToList();
+            return View("Index" , _context.products.ToList());
+
         }
+
+        
     }
 }

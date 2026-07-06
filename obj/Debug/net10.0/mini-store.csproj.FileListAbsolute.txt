@@ -222,3 +222,4 @@ C:\mini-store\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient
 C:\mini-store\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\mini-store\obj\Debug\net10.0\mini-store.csproj.AssemblyReference.cache
 C:\mini-store\obj\Debug\net10.0\mini-store.csproj.Up2Date
+C:\mini-store\obj\Debug\net10.0\mini-store.sourcelink.json
