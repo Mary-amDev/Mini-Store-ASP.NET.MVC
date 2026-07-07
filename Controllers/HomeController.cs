@@ -46,11 +46,11 @@ public class HomeController : Controller
     [Route("List")]
     public IActionResult Products (int id)
     { //id يجي من اليوزر
-        var filtered = _products
-            .Where(p => p.categoryId == id) .ToList(); //حيقرأ مصفوفة البرودكت سطر سطر و بعدها يشوف الشرط  
+        var filtered = _context.products
+            .Where(p => p.CategoryId == id) .ToList(); //حيقرأ مصفوفة البرودكت سطر سطر و بعدها يشوف الشرط  
            
          ViewBag.FilteredProducts = filtered;
-         ViewBag.categoryName = _categories[id];
+         ViewBag.categoryName = _context.categories;
         return View();
     }
 

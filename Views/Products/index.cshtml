@@ -6,7 +6,6 @@
 
     <h3>لوحة التحكم لإضافة المنتجات </h3>
 
-
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
@@ -16,7 +15,7 @@
             </div>
 
         <div class="card-body">
-                <form asp-action="Create" method="post">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
@@ -43,14 +42,17 @@
                         <span asp-validation-for="@Model.First().Price" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">صورة المنتج</label>
-                        <input type="file" name="Image" class="form-control" />
-                        <span asp-validation-for="@Model.First().Image" class="text-danger"></span>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">ارفق الصورة</label>
+                        <input name="ImageFile" type="file" class="form-control" accept="image/*" />
+                        @if (Model != null && Model.Any())
+                        {   
+                            <span asp-validation-for="@Model.First().ImageFile" class="text-danger"></span>
+                        }
                     </div>
                     
                     <div class="mb-3">
-                        <button class="btn btn-success px-4">حفظ المنتج</button>
+                        <button class="btn btn-info text-white px-4">حفظ المنتج</button>
                         <a asp-action="Index" class="btn btn-secondary px-4">إلغاء</a>
                     </div>
                 </form>
@@ -62,12 +64,28 @@
     
     <div class="card mt-5">
         <div class="card-body">
+            <div class="card mb-3 border-0 bg-light p-3 shadow-sm">
+                <form method="get" asp-action="Index" class="row g-3 align-items-end">
+                    <div class="col-md-9">
+                        <label class="form-label small fw-bold text-secondary">ابحث باسم المنتج</label>
+                        <input type="text" name="searchTerm" value="@ViewBag.CurrentSearch" placeholder="اكتب اسم المنتج الذي تريد البحث عنه..." class="form-control" />
+                    </div>
+                    <div class="col-md-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-info text-white w-100 fw-bold">
+                            <i class="bi bi-search"></i> بحث
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+            
             <table class="table">
                 <thead>
                     <tr>
                         <td>#</td>
                         <td>اسم المنتج</td>
                         <td>سعر المنتج</td>
+                        <td>صورة المنتج </td>
                         <td>الفئة </td>
                         <td colspan="2">الإجراءات</td>
                         
@@ -89,6 +107,14 @@
                                 <td>@item.Id</td>
                                 <td>@item.Name</td>
                                 <td>@item.Price</td>
+                                <td>
+                                    <img src="~/images/@item.Image"
+                                    alt="@item.Name"
+                                    width="50" 
+                                    height="50"
+                                    class="rounded"
+                                    style="object-fit: cover;"/>
+                                </td>   
                                 <td>@item.category.Name</td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id" 

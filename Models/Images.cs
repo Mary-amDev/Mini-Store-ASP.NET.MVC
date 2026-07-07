@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mini_store.Models
 {
-    public class Image
+    public class Images
     {
  
         public int Id { get; set; }
