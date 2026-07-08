@@ -1,9 +1,32 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization 
+@using Microsoft.AspNetCore.Mvc.Localization 
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer 
+    @* حقن المترجم إذا أردت ترجمة الكلمات الثابتة لاحقا *@ 
+@inject IViewLocalizer Localizer
+
+@{
+    // التحقق مما إذا كانت اللغة الحالية تُكتب من اليمين لليسار (مثل العربية)
+    var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var htmlDir = isRTL ? "rtl" : "ltr";
+    var htmlLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+   
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - المتجر الصغير</title>
+
+    @if (isRTL)
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
+
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />

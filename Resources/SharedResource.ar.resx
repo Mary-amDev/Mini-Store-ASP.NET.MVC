@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <data name="Home" xml:space="preserve"><value>الرئيسية</value></data>
+    <data name="Categories" xml:space="preserve"><value>الفئات</value></data>
+    <data name="Products" xml:space="preserve"><value>المنتجات</value></data>
+    <data name="Reports" xml:space="preserve"><value>التقارير</value></data>
+    <data name="Logout" xml:space="preserve"><value> تسجيل الخروج</value></data>
+    <data name="StoreSystem" xml:space="preserve"><value> نظام المتجر</value></data>
+    <data name="Dashboard" xml:space="preserve"><value> لوحة التحكم</value></data>
+    <data name="ReportUsers" xml:space="preserve"><value>  تقارير المستخدمين  </value></data>
+    <data name="AddNewProducts" xml:space="preserve"><value>   إضافة منتج جديد    </value></data>
+    <data name="SelectCategories" xml:space="preserve"><value>     اختر الفئة         </value></data>
+    <data name="ProductName" xml:space="preserve"><value>اسم المنتج</value></data>
+    <data name="MainDept" xml:space="preserve"><value> الأقسام الرئيسية للمتجر  </value></data>
+    <data name="Store" xml:space="preserve"><value> المتجر الإليكتروني</value></data>
+    <data name="ProductsDetails" xml:space="preserve"><value> تفاصيل المنتجات</value></data>
+    <data name="NoProductsAvailable" xml:space="preserve"><value> لاتوجد تفاصيل لهذا المنتج   </value></data>
+    <data name="Description" xml:space="preserve"><value> الوصف</value></data>
+    <data name="MadeIn" xml:space="preserve"><value> بلد المنشأ</value></data>
+    <data name="StockQuantity" xml:space="preserve"><value> الكمية</value></data>
+    <data name="Actions" xml:space="preserve"><value> الإجراءات</value></data>
+    <data name="Edit" xml:space="preserve"><value> تعديل</value></data>
+    <data name="Delete" xml:space="preserve"><value> حذف</value></data>
+
+</root>

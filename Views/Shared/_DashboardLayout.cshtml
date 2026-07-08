@@ -1,19 +1,36 @@
+@using System.Globalization 
+@using Microsoft.AspNetCore.Mvc.Localization 
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer 
+    @* حقن المترجم إذا أردت ترجمة الكلمات الثابتة لاحقا *@ 
+@inject IViewLocalizer Localizer
+
+@{
+    // التحقق مما إذا كانت اللغة الحالية تُكتب من اليمين لليسار (مثل العربية)
+    var isRTL = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var htmlDir = isRTL ? "rtl" : "ltr";
+    var htmlLang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+   
+}
+
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="@htmlLang" dir="@htmlDir">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - المتجر الصغير</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
-   <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+   @if (isRTL)
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    }
 
-    <!-- ملفات المشروع -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
     <style>
@@ -21,22 +38,22 @@
             background:#f8f9fa;
             overflow-x:hidden;
         }
-
-        /* القائمة الجانبية */
+        /* تطويع ال CSS ليتجاوب ديناميكيا مع الاتجاه الحالي */ 
         .sidebar{
-            width:250px;
-            height:100vh;
-            position:fixed;
-            top:0;
-            right:0;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
             background:rgb(71, 44, 59);
+            @(isRTL ? "right: 0;" : "left: 0;") /* سحر الاتجاهات هنا */
+            
         }
 
         .sidebar .nav-link{
-            color:#cbd5e1;
-            padding:12px 20px;
-            margin:5px 10px;
-            border-radius:8px;
+            color:white;
+            padding: 12px 20px;
+            margin: 5px 10px;
+            border-radius: 8px;
         }
 
         .sidebar .nav-link:hover{
@@ -44,10 +61,10 @@
             color:white;
         }
 
-        /* المحتوى الرئيسي */
-        .main-content{
-            margin-right:250px;
-            min-height:100vh;
+        /* المحتوى الرئيسي متجاوب مع الاتجاه */
+        .main-content {
+            @(isRTL ? "margin-right: 250px;" : "margin-left: 250px;")
+            min-height: 100vh;
         }
     </style>
 </head>
@@ -55,63 +72,72 @@
 <body>
 
     <!-- القائمة الجانبية -->
-    <aside class="sidebar">
+<aside class="sidebar">
         <div class="text-center p-4 border-bottom">
             <h4 class="text-white">
                 <i class="bi bi-shop"></i>
-                نظام المتجر
+                 @SharedLocalizer["StoreSystem"]
             </h4>
             <small class="text-secondary">
-                لوحة التحكم التعليمية
+                @SharedLocalizer["Dashboard"]
             </small>
         </div>
 
-        <ul class="nav flex-column mt-3">
+         <ul class="nav flex-column mt-3">
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-house"></i>
-                    الرئيسية
+                    @SharedLocalizer["Home"]
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link"
-                   asp-controller="Categories"
-                   asp-action="Index">
+                <a class="nav-link" asp-controller="Categories" asp-action="Index">
                     <i class="bi bi-tags"></i>
-                    الفئات
+                    @SharedLocalizer["Categories"]
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link"
-                   asp-controller="Products"
-                   asp-action="Index">
+                <a class="nav-link" asp-controller="Products" asp-action="Index">
                     <i class="bi bi-box-seam"></i>
-                    المنتجات
+                    @SharedLocalizer["Products"]
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link"
-                   asp-controller="Languages"
-                   asp-action="Index">
-                    <i class="bi bi-translate"></i>
-                    اللغات
+             <li class="nav-item">
+                <a class="nav-link" asp-controller="ProductsDetails" asp-action="Index">
+                    <i class="bi bi-box-seam"></i>
+                    @SharedLocalizer["ProductsDetails"]
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link">
                     <i class="bi bi-graph-up"></i>
-                    التقارير
+                    @SharedLocalizer["Reports"]
                 </a>
             </li>
 
             <li class="nav-item mt-3">
+                  <i class="bi bi-box-arrow-right"></i>
+                   
+                <form    asp-controller="Account" asp-action="Logout" method="post">
+                  <div class="row">
+                    <div class="col text-start ms-5">
+                        
+                        <button type="submit" class="btn btn-danger w-50">
+                            @SharedLocalizer["Logout"]
+                        </button>
+                    </div>
+                  </div>
+                </form>
+            </li>
+
+             <li class="nav-item mt-3">
                 <a class="nav-link text-danger">
                     <i class="bi bi-box-arrow-right"></i>
-                    تسجيل الخروج
+                    @SharedLocalizer["ReportUsers"]
                 </a>
             </li>
         </ul>
@@ -128,8 +154,9 @@
 
                 <!-- الجزء الأيمن في الهيدر (يحتوي على اللغات والمستخدم) -->
                 <div class="d-flex align-items-center gap-3">
+                    @* <partial name="_selectLanguage"/> *@
                     
-                    <!-- قائمة اللغات المنسدلة Dropdown -->
+                    @* <!-- قائمة اللغات المنسدلة Dropdown -->
                     <div class="dropdown">
                         <button class="btn btn-light btn-sm dropdown-toggle d-flex align-items-center gap-2" 
                                 type="button" 
@@ -141,17 +168,17 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end text-end" aria-labelledby="languageDropdown">
                             <li>
-                                <a class="dropdown-item active" href="#">
+                                <a class="dropdown-item active">
                                     <span class="me-2">🇸🇦</span> العربية
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item">
                                     <span class="me-2">🇺🇸</span> English (الإنجليزية)
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> *@
 
                     <!-- فاصل عمودي بسيط لتنسيق المظهر -->
                     <div class="vr text-muted" style="height: 20px;"></div>

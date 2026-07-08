@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using mini_store.Models; // call model
 using mini_store.Data;  // call database
+using Microsoft.AspNetCore.Authorization;
 
 namespace mini_store.Controllers
 {
@@ -19,6 +20,7 @@ namespace mini_store.Controllers
         //***************************************************************************
 
         [Route("dashboard")]
+        [Authorize]
         public IActionResult Index(string searchTerm)
         {
             //same meaning as select * from products
